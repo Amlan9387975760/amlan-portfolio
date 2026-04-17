@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amlan Kashyap | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1629;
+      --card: #141b2d;
+      --card2: #1a2340;
+      --accent: #6c63ff;
+      --accent2: #a78bfa;
+      --accent3: #38bdf8;
+      --gold: #fbbf24;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --border: rgba(108,99,255,0.2);
+      --glow: 0 0 40px rgba(108,99,255,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── STARS BACKGROUND ── */
+    #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+      opacity: 0;
+    }
+    @keyframes twinkle { 0%{opacity:0} 100%{opacity:var(--o,0.8)} }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-brand {
+      font-size: 1.4rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .nav-tabs { display: flex; gap: 0.3rem; }
+    .nav-tab {
+      padding: 0.5rem 1.1rem; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 500; cursor: pointer;
+      color: var(--muted); border: none; background: transparent;
+      transition: all 0.25s; letter-spacing: 0.2px;
+    }
+    .nav-tab:hover { color: var(--text); background: rgba(108,99,255,0.12); }
+    .nav-tab.active {
+      color: #fff; background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      box-shadow: 0 2px 16px rgba(108,99,255,0.4);
+    }
+
+    /* ── SECTIONS ── */
+    .section { display: none; min-height: 100vh; padding: 100px 2rem 4rem; }
+    .section.active { display: block; animation: fadeUp 0.5s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    /* ── HERO ── */
+    #home {
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at 60% 40%, rgba(108,99,255,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(56,189,248,0.08) 0%, transparent 50%);
+    }
+    #home.active { display: flex; }
+    .hero { text-align: center; padding: 2rem 0; }
+
+    .avatar-wrap {
+      position: relative; width: 160px; height: 160px;
+      margin: 0 auto 2rem;
+    }
+    .avatar-ring {
+      position: absolute; inset: -6px; border-radius: 50%;
+      background: conic-gradient(var(--accent), var(--accent3), var(--accent2), var(--accent));
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .avatar-inner {
+      position: relative; z-index: 1;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 100%);
+      border: 4px solid var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: #fff; font-weight: 800;
+      overflow: hidden;
+    }
+    .avatar-inner img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top;
+    }
+
+    .hero-badge {
+      display: inline-block; margin-bottom: 1rem;
+      padding: 0.3rem 1rem; border-radius: 20px;
+      background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.4);
+      font-size: 0.82rem; color: var(--accent2); font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    h1.hero-name {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.6rem;
+    }
+    .hero-title {
+      font-size: 1.15rem; color: var(--accent3); font-weight: 500;
+      margin-bottom: 1.4rem;
+    }
+    .hero-desc {
+      max-width: 620px; margin: 0 auto 2rem;
+      color: var(--muted); line-height: 1.7; font-size: 0.97rem;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-bottom: 2.5rem; }
+    .hero-tag {
+      padding: 0.4rem 1rem; border-radius: 20px;
+      background: var(--card2); border: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--muted); font-weight: 500;
+    }
+    .hero-tag i { margin-right: 0.4rem; color: var(--accent); }
+
+    /* ── SKILLS ── */
+    .skills-title {
+      font-size: 1.8rem; font-weight: 800; text-align: center;
+      margin-bottom: 0.5rem; letter-spacing: -0.5px;
+    }
+    .section-sub { text-align: center; color: var(--muted); margin-bottom: 2.5rem; font-size: 0.92rem; }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem; margin-bottom: 3rem;
+    }
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .skill-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+      border-color: rgba(108,99,255,0.5);
+    }
+    .skill-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
+    .skill-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: #fff; flex-shrink: 0;
+    }
+    .skill-name { font-weight: 700; font-size: 0.95rem; }
+    .skill-sub { font-size: 0.78rem; color: var(--muted); }
+    .skill-bar { height: 6px; background: var(--card2); border-radius: 10px; overflow: hidden; }
+    .skill-fill {
+      height: 100%; border-radius: 10px;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      width: 0; transition: width 1.2s ease;
+    }
+    .skill-pct { text-align: right; font-size: 0.78rem; color: var(--accent2); margin-top: 0.3rem; }
+
+    /* ── SECTION HEADERS ── */
+    .sec-header { margin-bottom: 2.5rem; }
+    .sec-tag {
+      display: inline-block; margin-bottom: 0.6rem;
+      padding: 0.25rem 0.8rem; border-radius: 6px;
+      background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.3);
+      font-size: 0.76rem; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--accent2); font-weight: 600;
+    }
+    .sec-title {
+      font-size: 2rem; font-weight: 800; letter-spacing: -0.8px;
+      background: linear-gradient(135deg, #fff 40%, var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .sec-line {
+      width: 50px; height: 3px; border-radius: 2px; margin-top: 0.6rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+    }
+
+    /* ── TIMELINE (Experience) ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent3), transparent);
+      border-radius: 2px;
+    }
+    .tl-item { position: relative; margin-bottom: 2.5rem; }
+    .tl-dot {
+      position: absolute; left: -2rem; top: 6px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      border: 3px solid var(--bg); box-shadow: 0 0 12px rgba(108,99,255,0.5);
+    }
+    .tl-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.6rem; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .tl-card:hover {
+      transform: translateX(6px); box-shadow: var(--glow);
+      border-color: rgba(108,99,255,0.4);
+    }
+    .tl-company {
+      font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.2rem;
+    }
+    .tl-role {
+      font-size: 0.88rem; font-weight: 600; color: var(--accent2); margin-bottom: 0.3rem;
+    }
+    .tl-duration {
+      display: inline-block; font-size: 0.76rem; color: var(--muted);
+      background: var(--card2); padding: 0.2rem 0.7rem; border-radius: 20px;
+      margin-bottom: 1rem; border: 1px solid var(--border);
+    }
+    .tl-list { list-style: none; }
+    .tl-list li {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.65;
+      padding: 0.25rem 0 0.25rem 1.2rem; position: relative;
+    }
+    .tl-list li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem;
+    }
+    .tl-badge {
+      display: inline-block; margin-bottom: 0.8rem;
+      padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-saas { background: rgba(56,189,248,0.15); color: var(--accent3); border: 1px solid rgba(56,189,248,0.3); }
+    .badge-tech { background: rgba(251,191,36,0.12); color: var(--gold); border: 1px solid rgba(251,191,36,0.3); }
+    .badge-eng  { background: rgba(167,139,250,0.15); color: var(--accent2); border: 1px solid rgba(167,139,250,0.3); }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: grid; gap: 1.4rem; }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.6rem; display: flex; gap: 1.2rem; align-items: flex-start;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .edu-card:hover { transform: translateY(-4px); box-shadow: var(--glow); border-color: rgba(108,99,255,0.4); }
+    .edu-icon {
+      width: 50px; height: 50px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff;
+    }
+    .edu-icon.grad { background: linear-gradient(135deg, var(--accent), #8b5cf6); }
+    .edu-icon.degree { background: linear-gradient(135deg, var(--accent3), #0ea5e9); }
+    .edu-icon.school { background: linear-gradient(135deg, var(--gold), #f59e0b); }
+    .edu-body { flex: 1; }
+    .edu-degree { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .edu-inst { font-size: 0.87rem; color: var(--accent2); margin-bottom: 0.4rem; }
+    .edu-meta { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+    .edu-chip {
+      font-size: 0.76rem; padding: 0.2rem 0.65rem; border-radius: 20px;
+      background: var(--card2); border: 1px solid var(--border); color: var(--muted);
+    }
+    .edu-chip.gold { color: var(--gold); border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.08); }
+    .edu-chip.green { color: #34d399; border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.08); }
+
+    /* ── INTERNSHIPS ── */
+    .intern-grid { display: grid; gap: 1.4rem; }
+    .intern-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.6rem; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .intern-card:hover { transform: translateY(-4px); box-shadow: var(--glow); border-color: rgba(108,99,255,0.4); }
+    .intern-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.9rem; }
+    .intern-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: #fff;
+    }
+    .ic-russia { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .ic-mtech  { background: linear-gradient(135deg, var(--accent), #8b5cf6); }
+    .ic-btech  { background: linear-gradient(135deg, var(--accent3), #0ea5e9); }
+    .intern-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .intern-sub { font-size: 0.82rem; color: var(--accent2); }
+    .intern-desc {
+      font-size: 0.87rem; color: var(--muted); line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+    .intern-bullets { list-style: none; }
+    .intern-bullets li {
+      font-size: 0.86rem; color: var(--muted); padding: 0.2rem 0 0.2rem 1.2rem;
+      position: relative; line-height: 1.6;
+    }
+    .intern-bullets li::before { content: '◆'; position: absolute; left: 0; color: var(--accent3); font-size: 0.6rem; top: 6px; }
+
+    /* ── ACHIEVEMENTS ── */
+    .ach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+    .ach-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.4rem; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .ach-card:hover { transform: translateY(-4px); box-shadow: var(--glow); border-color: rgba(108,99,255,0.4); }
+    .ach-icon {
+      width: 46px; height: 46px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff; margin-bottom: 0.9rem;
+    }
+    .ai-robot  { background: linear-gradient(135deg, #ef4444, #f87171); }
+    .ai-tt     { background: linear-gradient(135deg, var(--accent3), #38bdf8); }
+    .ai-basket { background: linear-gradient(135deg, var(--gold), #f59e0b); }
+    .ai-cricket{ background: linear-gradient(135deg, #34d399, #10b981); }
+    .ach-title { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .ach-desc  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      margin-top: 4rem; padding: 2rem; border-radius: 20px;
+      background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(56,189,248,0.1));
+      border: 1px solid rgba(108,99,255,0.3); text-align: center;
+    }
+    .contact-strip h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+    .c-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 1.2rem; border-radius: 10px;
+      background: var(--card2); border: 1px solid var(--border);
+      font-size: 0.85rem; color: var(--text); text-decoration: none;
+      transition: all 0.25s;
+    }
+    .c-link:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); }
+    .c-link i { font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--muted);
+      border-top: 1px solid var(--border); background: var(--bg2);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-tabs { gap: 0.1rem; }
+      .nav-tab { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+      .section { padding: 90px 1rem 3rem; }
+      .edu-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Stars -->
+<div id="stars"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">AK</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('home')"><i class="fas fa-home"></i> Home</button>
+    <button class="nav-tab" onclick="showTab('experience')"><i class="fas fa-briefcase"></i> Experience</button>
+    <button class="nav-tab" onclick="showTab('education')"><i class="fas fa-graduation-cap"></i> Education</button>
+    <button class="nav-tab" onclick="showTab('internships')"><i class="fas fa-flask"></i> Internships</button>
+    <button class="nav-tab" onclick="showTab('achievements')"><i class="fas fa-trophy"></i> Achievements</button>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<section id="home" class="section active">
+  <div class="container">
+    <div class="hero">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <div class="avatar-inner"><img src="profile.png" alt="Amlan Kashyap"/></div>
+      </div>
+      <div class="hero-badge"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;color:#34d399"></i>Available for Opportunities</div>
+      <h1 class="hero-name">Amlan Kashyap</h1>
+      <div class="hero-title">Operations &amp; Support Lead · M.Tech Electrical Engineer</div>
+      <p class="hero-desc">
+        A results-driven professional bridging the worlds of technology, operations, and engineering.
+        Currently leading client success operations at Vantage Circle, with a strong background
+        in SaaS platforms, data analysis, and electrical power systems.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag"><i class="fas fa-database"></i>SQL &amp; Data Analysis</span>
+        <span class="hero-tag"><i class="fas fa-cogs"></i>Operations Management</span>
+        <span class="hero-tag"><i class="fas fa-bolt"></i>Electrical Engineering</span>
+        <span class="hero-tag"><i class="fas fa-headset"></i>Client Success</span>
+        <span class="hero-tag"><i class="fas fa-project-diagram"></i>Project Management</span>
+        <span class="hero-tag"><i class="fas fa-globe"></i>International Experience</span>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="skills-title">Professional Skillset</div>
+    <p class="section-sub">Core competencies built across diverse industries and roles</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon"><i class="fas fa-database"></i></div>
+          <div><div class="skill-name">SQL &amp; Data Reporting</div><div class="skill-sub">Data analysis &amp; client insights</div></div>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-pct="88"></div></div>
+        <div class="skill-pct">88%</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#38bdf8,#0ea5e9)"><i class="fas fa-users"></i></div>
+          <div><div class="skill-name">Client Success &amp; CRM</div><div class="skill-sub">Onboarding &amp; retention</div></div>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-pct="92" style="background:linear-gradient(90deg,#38bdf8,#0ea5e9)"></div></div>
+        <div class="skill-pct">92%</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"><i class="fas fa-store"></i></div>
+          <div><div class="skill-name">Amazon Seller Central</div><div class="skill-sub">TAM &amp; seller operations</div></div>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-pct="85" style="background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div></div>
+        <div class="skill-pct">85%</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6)"><i class="fas fa-bolt"></i></div>
+          <div><div class="skill-name">PLC / DCS &amp; SCADA</div><div class="skill-sub">Automation &amp; Ladder Logic</div></div>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-pct="78" style="background:linear-gradient(90deg,#a78bfa,#8b5cf6)"></div></div>
+        <div class="skill-pct">78%</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#34d399,#10b981)"><i class="fas fa-tasks"></i></div>
+          <div><div class="skill-name">Project Management</div><div class="skill-sub">Vendor, bids &amp; delivery</div></div>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-pct="83" style="background:linear-gradient(90deg,#34d399,#10b981)"></div></div>
+        <div class="skill-pct">83%</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#f87171,#ef4444)"><i class="fas fa-brain"></i></div>
+          <div><div class="skill-name">Neural Networks &amp; Matlab</div><div class="skill-sub">Power quality research</div></div>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" data-pct="72" style="background:linear-gradient(90deg,#f87171,#ef4444)"></div></div>
+        <div class="skill-pct">72%</div>
+      </div>
+    </div>
+
+    <!-- Contact strip on home -->
+    <div class="contact-strip">
+      <h3>Let's Connect</h3>
+      <div class="contact-links">
+        <a href="mailto:amlan.kashyap@vantagecircle.com" class="c-link"><i class="fas fa-envelope"></i> amlan.kashyap@vantagecircle.com</a>
+        <span class="c-link"><i class="fas fa-map-marker-alt"></i> Guwahati, Assam, India</span>
+        <span class="c-link"><i class="fas fa-building"></i> Vantage Circle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience" class="section">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">Career</div>
+      <div class="sec-title">Work Experience</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge badge-saas">SaaS · Current Role</span>
+          <div class="tl-company">Vantage Circle — Guwahati</div>
+          <div class="tl-role">Operations &amp; Support Lead</div>
+          <div class="tl-duration"><i class="fas fa-clock" style="margin-right:4px"></i>2 Years 10 Months · Present</div>
+          <ul class="tl-list">
+            <li>Managed end-user and client success operations, including client platform implementation and user onboarding, ensuring smooth execution of Vantage Fit and Vantage Circle reward programs.</li>
+            <li>Utilized SQL for data analysis and reporting to enhance client success and operational efficiency.</li>
+            <li>Proactively resolved user issues and enhanced customer satisfaction through efficient communication and problem-solving.</li>
+            <li>Played a key role in operational optimization and client engagement strategies.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge badge-tech">E-Commerce · Tech</span>
+          <div class="tl-company">Amazon — Bangalore</div>
+          <div class="tl-role">Technical Account Manager</div>
+          <div class="tl-duration"><i class="fas fa-clock" style="margin-right:4px"></i>1 Year 4 Months</div>
+          <ul class="tl-list">
+            <li>Managed seller operations through the Seller Central interface, ensuring efficient support and problem resolution.</li>
+            <li>Included in the 911 queue for the India region for outstanding performance in handling critical issues.</li>
+            <li>Led seller onboarding and account management, resolving complex seller queries with a focus on maintaining high satisfaction levels.</li>
+            <li>Achieved key performance metrics: Average Handling Time (AHT), Positive Response Rate (PRR), and Resolve Rate.</li>
+            <li>Collaborated with cross-functional teams to address issues related to merchant risk support.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge badge-eng">Engineering</span>
+          <div class="tl-company">N.K Engineering Works — Guwahati</div>
+          <div class="tl-role">Project Engineer (Electrical)</div>
+          <div class="tl-duration"><i class="fas fa-clock" style="margin-right:4px"></i>1 Year 5 Months</div>
+          <ul class="tl-list">
+            <li>Tender implementation, documentation, and execution evaluating the bids.</li>
+            <li>Managed project bidding and vendor coordination, supporting project execution and client communication.</li>
+            <li>Streamlined documentation processes, ensuring accurate reporting and timely bill submissions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge badge-eng">Engineering · Infrastructure</span>
+          <div class="tl-company">Mega Electricals — Guwahati</div>
+          <div class="tl-role">Project Manager</div>
+          <div class="tl-duration"><i class="fas fa-clock" style="margin-right:4px"></i>1 Year</div>
+          <ul class="tl-list">
+            <li>Executed high-impact electrical projects, including 132 KV bay extension and single-circuit line construction.</li>
+            <li>Managed project deliverables and coordinated with stakeholders to ensure project success.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section id="education" class="section">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">Academic</div>
+      <div class="sec-title">Education</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="edu-grid">
+
+      <div class="edu-card">
+        <div class="edu-icon grad"><i class="fas fa-graduation-cap"></i></div>
+        <div class="edu-body">
+          <div class="edu-degree">Master of Technology (M.Tech) — Electrical Engineering Power Systems</div>
+          <div class="edu-inst"><i class="fas fa-university" style="margin-right:5px"></i>Assam Engineering College (AEC)</div>
+          <div class="edu-meta">
+            <span class="edu-chip">2023</span>
+            <span class="edu-chip gold"><i class="fas fa-star" style="margin-right:3px"></i>78.47% — 1st Class With Honours</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon degree"><i class="fas fa-award"></i></div>
+        <div class="edu-body">
+          <div class="edu-degree">Bachelor of Engineering (B.E) — Electrical Engineering</div>
+          <div class="edu-inst"><i class="fas fa-university" style="margin-right:5px"></i>Assam Engineering College (AEC)</div>
+          <div class="edu-meta">
+            <span class="edu-chip">2011 – 2015</span>
+            <span class="edu-chip green"><i class="fas fa-check-circle" style="margin-right:3px"></i>66.24% — 1st Class</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon school"><i class="fas fa-school"></i></div>
+        <div class="edu-body">
+          <div class="edu-degree">Class XII — CBSE</div>
+          <div class="edu-inst"><i class="fas fa-map-marker-alt" style="margin-right:5px"></i>Don Bosco School, Guwahati</div>
+          <div class="edu-meta">
+            <span class="edu-chip">2011</span>
+            <span class="edu-chip gold">88.8%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon school"><i class="fas fa-book"></i></div>
+        <div class="edu-body">
+          <div class="edu-degree">Class X — CBSE</div>
+          <div class="edu-inst"><i class="fas fa-map-marker-alt" style="margin-right:5px"></i>Don Bosco School, Guwahati</div>
+          <div class="edu-meta">
+            <span class="edu-chip">2009</span>
+            <span class="edu-chip gold">89.6%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ INTERNSHIPS ══ -->
+<section id="internships" class="section">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">Research &amp; Projects</div>
+      <div class="sec-title">Internships &amp; Projects</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="intern-grid">
+
+      <div class="intern-card">
+        <div class="intern-header">
+          <div class="intern-icon ic-russia"><i class="fas fa-globe-europe"></i></div>
+          <div>
+            <div class="intern-title">Management Internship — Russia</div>
+            <div class="intern-sub">AIESEC International Exchange Program</div>
+          </div>
+        </div>
+        <p class="intern-desc">
+          International internship with AIESEC in Russia — participated in a cross-cultural leadership exchange program, collaborating with an international team to implement community development projects.
+        </p>
+      </div>
+
+      <div class="intern-card">
+        <div class="intern-header">
+          <div class="intern-icon ic-mtech"><i class="fas fa-file-alt"></i></div>
+          <div>
+            <div class="intern-title">M.Tech Research &amp; Published Paper</div>
+            <div class="intern-sub">Assam Engineering College</div>
+          </div>
+        </div>
+        <p class="intern-desc">
+          Published a research paper on <strong style="color:var(--accent2)">"Electric Spring on Voltage and Power Factor Correction and Demand Side Management on Load Side."</strong>
+        </p>
+      </div>
+
+      <div class="intern-card">
+        <div class="intern-header">
+          <div class="intern-icon ic-btech"><i class="fas fa-microchip"></i></div>
+          <div>
+            <div class="intern-title">B.Tech Final Year Project</div>
+            <div class="intern-sub">Power Quality Assessment · 1 Year</div>
+          </div>
+        </div>
+        <p class="intern-desc">Power Quality Assessment using Wavelet Transform and Reliability Case Study</p>
+        <ul class="intern-bullets">
+          <li>Studied different power quality disturbances using Matlab.</li>
+          <li>Conducted power quality analysis using DWT and DT-DWT techniques.</li>
+          <li>Employed neural networks to classify disturbances.</li>
+          <li>Conducted a reliability case study on the 33/11 kV Ulubari substation under APDCL.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACHIEVEMENTS ══ -->
+<section id="achievements" class="section">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">Recognition &amp; Sports</div>
+      <div class="sec-title">Achievements</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="ach-grid">
+
+      <div class="ach-card">
+        <div class="ach-icon ai-robot"><i class="fas fa-robot"></i></div>
+        <div class="ach-title">ROBOTRYST-2012 — National Robotics</div>
+        <div class="ach-desc">Participated in the zonal round of the national-level robotics championship organized by Robosapiens Technologies Pvt. Ltd. in association with <strong style="color:var(--text)">IIT Kharagpur</strong>.</div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon ai-tt"><i class="fas fa-table-tennis-paddle-ball"></i></div>
+        <div class="ach-title">Table Tennis — State Level</div>
+        <div class="ach-desc">Professionally trained at Nehru Stadium, Guwahati. Participated in the <strong style="color:var(--text)">'All Assam Ranking Table Tennis Championship'</strong> at Don Bosco Indoor Stadium.</div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon ai-basket"><i class="fas fa-basketball"></i></div>
+        <div class="ach-title">Basketball — 1st Position</div>
+        <div class="ach-desc">First position in the Interclass Basketball Competition at <strong style="color:var(--text)">Don Bosco School</strong>, January 2009.</div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-icon ai-cricket"><i class="fas fa-trophy"></i></div>
+        <div class="ach-title">Cricket — 1st Position</div>
+        <div class="ach-desc">First position in the Interhouse Cricket Competition, <strong style="color:var(--text)">December 2009</strong>.</div>
+      </div>
+
+    </div>
+
+    <!-- Contact strip -->
+    <div class="contact-strip" style="margin-top:3rem">
+      <h3>Get In Touch</h3>
+      <div class="contact-links">
+        <a href="mailto:amlan.kashyap@vantagecircle.com" class="c-link"><i class="fas fa-envelope"></i>amlan.kashyap@vantagecircle.com</a>
+        <span class="c-link"><i class="fas fa-map-marker-alt"></i>Guwahati, Assam</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Amlan Kashyap &nbsp;·&nbsp; Built with ♥</p>
+</footer>
+
+<script>
+  // Stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%; top:${Math.random()*100}%;
+      --d:${2+Math.random()*5}s; --o:${0.3+Math.random()*0.7};
+      animation-delay:${Math.random()*6}s;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // Tab switching
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+
+    // Animate skill bars when home is shown
+    if (id === 'home') animateSkills();
+  }
+
+  // Skill bar animation
+  function animateSkills() {
+    setTimeout(() => {
+      document.querySelectorAll('.skill-fill').forEach(el => {
+        el.style.width = el.dataset.pct + '%';
+      });
+    }, 200);
+  }
+
+  // Animate on load
+  animateSkills();
+</script>
+</body>
+</html>
